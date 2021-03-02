@@ -51,10 +51,10 @@ class EditDistanceTests(unittest.TestCase):
         self.assertEqual(edit_distance('saturday', 'sunday'), 3)
         self.assertEqual(edit_distance('intention', 'execution'), 5)
 
-    # def test_edit_distance_dp(self):
-    #     """Test the bottom-up version of Edit Distance."""
-    #     self.assertEqual(edit_distance_dp('saturday', 'sunday'), 3)
-    #     self.assertEqual(edit_distance_dp('intention', 'execution'), 5)
+    def test_edit_distance_dp(self):
+        """Test the bottom-up version of Edit Distance."""
+        self.assertEqual(edit_distance_dp('saturday', 'sunday'), 3)
+        self.assertEqual(edit_distance_dp('intention', 'execution'), 5)
 
 
 if __name__ == '__main__':

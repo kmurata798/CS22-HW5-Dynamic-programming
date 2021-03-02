@@ -111,11 +111,11 @@ def edit_distance(str1, str2):
         return edit_distance(str1[:-1], str2[:-1])
 
     # Compare the 3 possible options and grab the smallest value and then adding + 1 to it
-    option1_left = edit_distance(str1[:-1], str2)
-    option2_up = edit_distance(str1, str2[:-1])
-    option3_diag = edit_distance(str1[:-1], str2[:-1])
+    insert = edit_distance(str1[:-1], str2)
+    delete = edit_distance(str1, str2[:-1])
+    replace = edit_distance(str1[:-1], str2[:-1])
 
-    return 1 + min(option1_left, option2_up, option3_diag)
+    return 1 + min(insert, delete, replace)
 
 def edit_distance_dp(str1, str2):
     """Compute the Edit Distance between 2 strings."""
@@ -123,6 +123,20 @@ def edit_distance_dp(str1, str2):
     cols = len(str2) + 1
     dp_table = [[0 for j in range(cols)] for i in range(rows)]
 
-    # TODO: Fill in the table using a nested for loop.
+    # Fill in the table using a nested for loop.
+    for row in range(1, rows):
+        for col in range(1, cols):
+            insert = dp_table[row - 1][col]
+            delete = dp_table[row][col - 1]
+            replace = dp_table[row - 1][col - 1]
+            # if str1[row - 1] == str2[col - 1]:
+            #     dp_table[row][col] = replace 
+            # else:
+            #     dp_table[row][col] = min(insert, delete) + 1
+
+            # REFACTORED VERSION (IF/ELSE statement One-liner)
+            dp_table[row][col] = (replace 
+                                  if str1[row - 1] == str2[col - 1]
+                                  else 1 + min(insert, delete))
 
     return dp_table[rows-1][cols-1]
