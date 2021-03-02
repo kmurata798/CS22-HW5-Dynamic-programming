@@ -55,12 +55,6 @@ def knapsack(items, capacity):
     first_weight = items[0][1]
     other_items = items[1:]
 
-    print("other_items:", other_items)
-    print("items:", items)
-    print("first_weight:", first_weight)
-    print("first_value:", first_value)
-    print("capacity:", capacity)
-
     # Take the value of the first item, add it to whatever the value
     # of the remaining items would be, but subtract capacity by the 
     # first item's weight
@@ -82,9 +76,24 @@ def knapsack_dp(items, capacity):
     cols = capacity + 1
     dp_table = [[0 for j in range(cols)] for i in range(rows)]
 
-    # TODO: Fill in the table using a nested for loop.
-
-
+    # Fill in the table using a nested for loop.
+    # Loop through the table
+    for row in range(rows):
+        for col in range(cols):
+            # # If it's over capacity then grab the previous value
+            # if items[row-1][1] > col:
+            #     dp_table[row][col] = dp_table[row-1][col]
+            # else:
+            #     value_with = items[row-1][2] + dp_table[row-1][col - items[row-1][1]]
+            #     value_without = dp_table[row-1][col]
+            # # Compare which value is greater since the capacity hasn't been reached
+            #     dp_table[row][col] = max(value_with, value_without)
+            
+            # REFACTORED VERSION (IF/ELSE statement One-liner)
+            dp_table[row][col] = (dp_table[row - 1][col]
+                                  if items[row - 1][1] > col
+                                  else max(items[row - 1][2] + dp_table[row - 1][col - items[row - 1][1]],
+                                           dp_table[row - 1][col]))
     return dp_table[rows-1][cols-1]
     
 def edit_distance(str1, str2):
