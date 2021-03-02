@@ -46,7 +46,34 @@ def lcs_dp(strA, strB):
 def knapsack(items, capacity):
     """Return the maximum value that can be stored in the knapsack using the
     items given."""
-    pass
+    # Go through every possible choice of adding values and skipping values based
+    # on the capacity of the knapsack to find the highest outcome.
+    # BASE CASE: If items == [], or capacity == 0, then return 0
+    if len(items) == 0 or capacity <= 0:
+        return 0
+    first_value = items[0][2]
+    first_weight = items[0][1]
+    other_items = items[1:]
+
+    print("other_items:", other_items)
+    print("items:", items)
+    print("first_weight:", first_weight)
+    print("first_value:", first_value)
+    print("capacity:", capacity)
+
+    # Take the value of the first item, add it to whatever the value
+    # of the remaining items would be, but subtract capacity by the 
+    # first item's weight
+    value_with = first_value + knapsack(other_items, capacity - first_weight)
+    
+    # The total value assuming the first item doesn't go in the knapsack
+    value_without = knapsack(other_items, capacity)
+    
+    # Check to see if the total weight exceeds the capacity
+    if capacity - first_weight < 0:
+        return value_without
+    else:
+        return max(value_with, value_without)
 
 def knapsack_dp(items, capacity):
     """Return the maximum value that can be stored in the knapsack using the
@@ -56,6 +83,7 @@ def knapsack_dp(items, capacity):
     dp_table = [[0 for j in range(cols)] for i in range(rows)]
 
     # TODO: Fill in the table using a nested for loop.
+
 
     return dp_table[rows-1][cols-1]
     
