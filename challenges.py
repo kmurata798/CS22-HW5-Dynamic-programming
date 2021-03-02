@@ -24,9 +24,22 @@ def lcs_dp(strA, strB):
     rows = len(strA) + 1
     cols = len(strB) + 1
 
+    #           array of arrays with 0's
     dp_table = [[0 for j in range(cols)] for i in range(rows)]
 
-    # TODO: Fill in the table using a nested for loop.
+    # Fill in the table using a nested for loop.
+    for row in range(1, rows):
+        for col in range(1, cols):
+            # if strA[row - 1] == strB[col - 1]:
+            #     dp_table[row][col] = dp_table[row - 1][col - 1] + 1
+            # else:
+            #     dp_table[row][col] = max(dp_table[row][col - 1], dp_table[row - 1][col])
+            
+            # REFACTORED VERSION (IF/ELSE statement One-liner) 
+            dp_table[row][col] = (dp_table[row - 1][col - 1] + 1
+                                 if strA[row - 1] == strB[col - 1]
+                                 else max(dp_table[row][col - 1],
+                                          dp_table[row - 1][col]))
 
     return dp_table[rows-1][cols-1]
 
