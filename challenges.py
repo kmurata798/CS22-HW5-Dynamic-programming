@@ -95,10 +95,27 @@ def knapsack_dp(items, capacity):
                                   else max(items[row - 1][2] + dp_table[row - 1][col - items[row - 1][1]],
                                            dp_table[row - 1][col]))
     return dp_table[rows-1][cols-1]
-    
+
+@Memoize
 def edit_distance(str1, str2):
     """Compute the Edit Distance between 2 strings."""
-    pass
+    # BASE CASE 1:
+    # If one of the strings is empty,tThe solution will be the length of the other non-empty string
+    if len(str1) == 0 or len(str2) == 0:
+        return max(len(str1), len(str2))
+    
+    # BASE CASE 2:
+    # Check if the last letters are equal
+    if str1[-1] == str2[-1]:
+        # If the last letters are equal, then run function again without the last letter from each string
+        return edit_distance(str1[:-1], str2[:-1])
+
+    # Compare the 3 possible options and grab the smallest value and then adding + 1 to it
+    option1_left = edit_distance(str1[:-1], str2)
+    option2_up = edit_distance(str1, str2[:-1])
+    option3_diag = edit_distance(str1[:-1], str2[:-1])
+
+    return 1 + min(option1_left, option2_up, option3_diag)
 
 def edit_distance_dp(str1, str2):
     """Compute the Edit Distance between 2 strings."""

@@ -44,12 +44,12 @@ class KnapsackTests(unittest.TestCase):
         self.assertEqual(knapsack_dp(self.items2, 8), 8)
 
 
-# class EditDistanceTests(unittest.TestCase):
+class EditDistanceTests(unittest.TestCase):
 
-    # def test_edit_distance_memoized(self):
-    #     """Test the memoized version of Edit Distance."""
-    #     self.assertEqual(edit_distance('saturday', 'sunday'), 3)
-    #     self.assertEqual(edit_distance('intention', 'execution'), 5)
+    def test_edit_distance_memoized(self):
+        """Test the memoized version of Edit Distance."""
+        self.assertEqual(edit_distance('saturday', 'sunday'), 3)
+        self.assertEqual(edit_distance('intention', 'execution'), 5)
 
     # def test_edit_distance_dp(self):
     #     """Test the bottom-up version of Edit Distance."""
